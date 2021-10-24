@@ -28,7 +28,7 @@ SCREEN_HEIGHT = 600
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
-        self.surf = pygame.image.load(r'C:\Users\holly\Desktop\school\CS 196\Group57-FA21\game_tutorial\jet.jpg').convert()
+        self.surf = pygame.image.load("game_tutorial/jet.png").convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect()
 
@@ -58,8 +58,9 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super(Enemy, self).__init__()
-        self.surf = pygame.Surface((20, 10))
-        self.surf.fill((255, 255, 255))
+        self.surf = pygame.image.load("missile.png").convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        # The starting position is randomly generated, as is the speed
         self.rect = self.surf.get_rect(
             center=(
                 random.randint(SCREEN_WIDTH + 20, SCREEN_WIDTH + 100),
@@ -74,6 +75,8 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.move_ip(-self.speed, 0)
         if self.rect.right < 0:
             self.kill()
+
+# Define the cloud object by extending pygame.sprite
 
 # Initialize pygame
 pygame.init()
