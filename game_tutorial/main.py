@@ -97,6 +97,9 @@ class Cloud(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.kill()
 
+# Setup for sounds. Defaults are good.
+pygame.mixer.init()
+
 # Initialize pygame
 pygame.init()
 
@@ -131,6 +134,15 @@ running = True
 
 #Main loop
 while running:
+    # Load and play background music
+    # Sound source: https://opengameart.org/content/battle-theme-a
+    # Could not find License info, but site said 100%  free
+    pygame.mixer.music.load("game_tutorial/battleThemeA.mp3")
+    pygame.mixer.music.play(loops=-1)
+
+    # Load all sound files
+    # did not work 
+    
     #Look at every event in the queue
     for event in pygame.event.get():
         #Did the user hit a key?
