@@ -62,7 +62,7 @@
 
 ## Sprint 3
 ### finalize game (potentially)
-- develop relationships between blocks (IS connections)
+- Implement the block classes
 - finalize graphics
 
 
