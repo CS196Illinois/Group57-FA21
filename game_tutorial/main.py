@@ -36,8 +36,10 @@ class Player(pygame.sprite.Sprite):
     def update(self, pressed_keys):
         if pressed_keys[K_UP]:
             self.rect.move_ip(0, -5)
+            move_down_sound.play()
         if pressed_keys[K_DOWN]:
             self.rect.move_ip(0, 5)
+            move_down_sound.play()
         if pressed_keys[K_LEFT]:
             self.rect.move_ip(-5, 0)
         if pressed_keys[K_RIGHT]:
@@ -93,7 +95,7 @@ class Cloud(pygame.sprite.Sprite):
     # Move the clouds based on a constant speed
     # Remove the cloud when it passes the left edge of the screen
     def update(self):
-        self.rect.move(-5, 0)
+        self.rect.move_ip(-5, 0)
         if self.rect.right < 0:
             self.kill()
 
@@ -128,21 +130,24 @@ clouds = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 
+# Load and play background music
+# Sound source: https://opengameart.org/content/battle-theme-a
+# Could not find License info, but site said 100%  free
+pygame.mixer.music.load("game_tutorial/battleThemeA.mp3")
+pygame.mixer.music.play(loops=-1)
+
+# Load all sound files
+move_down_sound = pygame.mixer.Sound("game_tutorial/79671__joedeshon__slide-whistle-down-01.wav")
+move_up_sound = pygame.mixer.Sound("game_tutorial/79677__joedeshon__slide-whistle-up-01.wav")
+collision_sound = pygame.mixer.Sound("game_tutorial/qubodup-crash.ogg")
+
 # Variable to keep the main loop running
 running = True
 
 
 #Main loop
 while running:
-    # Load and play background music
-    # Sound source: https://opengameart.org/content/battle-theme-a
-    # Could not find License info, but site said 100%  free
-    pygame.mixer.music.load("game_tutorial/battleThemeA.mp3")
-    pygame.mixer.music.play(loops=-1)
 
-    # Load all sound files
-    # did not work 
-    
     #Look at every event in the queue
     for event in pygame.event.get():
         #Did the user hit a key?
@@ -186,8 +191,15 @@ while running:
 
     # Check if any enemies have collided with the player
     if pygame.sprite.spritecollideany(player, enemies):
-        # If so, them remove the player and stop the loop
+        # If so, them remove the player
         player.kill()
+
+        #Stop any moving sounds and play the collision sound
+        move_up_sound.stop()
+        move_down_sound.stop()
+        collision_sound.play()
+
+        #Stop the loop
         running = False
 
     # Update the display
@@ -195,3 +207,7 @@ while running:
 
     # Ensure the program maintains a rate of 30 frames per second
     clock.tick(30)
+
+# All done! Stop and quit the mixer.
+pygame.mixer.music.stop()
+pygame.mixer.quit()
