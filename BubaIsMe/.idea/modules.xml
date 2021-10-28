@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/BubaIsMe.iml" filepath="$PROJECT_DIR$/.idea/BubaIsMe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SpaceInvader/.idea/SpaceInvader.iml" filepath="$PROJECT_DIR$/../SpaceInvader/.idea/SpaceInvader.iml" />
+    </modules>
+  </component>
+</project>
