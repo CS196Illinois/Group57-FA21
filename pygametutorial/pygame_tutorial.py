@@ -28,7 +28,7 @@ SCREEN_HEIGHT = 600
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
-        self.surf = pygame.image.load("cat.png").convert()
+        self.surf = pygame.image.load("pygametutorial\cat.png").convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect()
 
@@ -60,7 +60,7 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super(Enemy, self).__init__()
-        self.surf = pygame.image.load("proj.png").convert()
+        self.surf = pygame.image.load("pygametutorial\proj.png").convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(
             center=(
@@ -82,7 +82,7 @@ class Enemy(pygame.sprite.Sprite):
 class Cloud(pygame.sprite.Sprite):
     def __init__(self):
         super(Cloud, self).__init__()
-        self.surf = pygame.image.load("cloud.png").convert()
+        self.surf = pygame.image.load("pygametutorial\cloud.png").convert()
         self.surf.set_colorkey((0, 0, 0), RLEACCEL)
         # The starting position is randomly generated
         self.rect = self.surf.get_rect(
@@ -130,13 +130,13 @@ all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 
 # Load and play background music
-pygame.mixer.music.load("smallgap.wav")
+pygame.mixer.music.load("pygametutorial\smallgap.wav")
 pygame.mixer.music.play(loops = -1)
 
 # Load all sound files
-move_up_sound = pygame.mixer.Sound("whoosh.ogg")
-move_down_sound = pygame.mixer.Sound("whoosh.ogg")
-collision_sound = pygame.mixer.Sound("hit.ogg")
+move_up_sound = pygame.mixer.Sound("pygametutorial\whoosh.ogg")
+move_down_sound = pygame.mixer.Sound("pygametutorial\whoosh.ogg")
+collision_sound = pygame.mixer.Sound("pygametutorial\hit.ogg")
 
 # Variable to keep the main loop running
 running = True
