@@ -1,5 +1,6 @@
 # Import pygame
 import pygame
+from pygame.constants import WINDOWEXPOSED
 
 from pygame.locals import (
     RLEACCEL,
@@ -78,3 +79,61 @@ class Attribute(Block):
 class Operator(Block):
     def __init__(self, set_x, set_y, set_image):
         super().__init__(set_x, set_y, "Operator", False, True, False, True, set_image)
+
+
+# Create list of Objects for game
+list_of_blocks = []
+
+# Create instances and add them to the Block list
+
+# Create all the Object instances, make a list of Objects, add that list to the Block list
+# 0 is a placeholder until I figure out the correct positions
+cookie = Object(256, 288, True, False, False, False, "Project/Graphics/cookie.png")
+wafer_1 = Object(256, 160, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_2 = Object(320, 160, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_3 = Object(384, 160, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_4 = Object(448, 160, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_5 = Object(512, 160, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_6 = Object(576, 160, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_7 = Object(640, 160, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_8 = Object(256, 416, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_9 = Object(320, 416, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_10 = Object(384, 416, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_11 = Object(448, 416, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_12 = Object(512, 416, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_13 = Object(576, 416, False, False, False, True, "Project/Graphics/wafer.png")
+wafer_14 = Object(640, 416, False, False, False, True, "Project/Graphics/wafer.png")
+milk = Object(640, 288, False, False, True, True, "Project/Graphics/milk.png")
+donut_1 = Object(448, 224, False, True, False, True, "Project/Graphics/donut.png")
+donut_2 = Object(448, 288, False, True, False, True, "Project/Graphics/donut.png")
+donut_3 = Object(448, 352, False, True, False, True, "Project/Graphics/donut.png")
+wafers = [wafer_1, wafer_2, wafer_3, wafer_4, wafer_5, wafer_6, wafer_7, wafer_8, wafer_9, wafer_10, wafer_11, wafer_12, wafer_13, wafer_14]
+donuts = [donut_1, donut_2, donut_3]
+list_of_objects = [cookie, wafers, milk, donuts]
+list_of_blocks.append(list_of_objects)
+
+# Create all of the Variable instances, make a Variable list, add that list to Block list
+# 0 is a placeholder until I figure out the correct positions
+cookie_word = Variable(20, 20, "Project/Graphics/cookieword.png")
+wafer_word = Variable(748, 540, "Project/Graphics/waferword.png")
+milk_word = Variable(20, 540, "Project/Graphics/milkword.png")
+donut_word = Variable(748, 20, "Project/Graphics/donut.png")
+list_of_variables = [cookie_word, wafer_word, milk_word, donut_word]
+list_of_blocks.append(list_of_variables)
+
+# Create all of the Attribute instances, make an Attribute list, add that list to Block list
+# 0 is a placeholder until I figure out the correct positions
+you = Attribute(128, 20, "Project/Graphics/youword.png")
+win = Attribute(128, 540, "Project/Graphics/winword.png")
+stop = Attribute(876, 540, "Project/Graphics/stopword.png")
+push = Attribute(876, 20, "Project/Graphics/pushword.png")
+list_of_attributes = [you, win, stop, push]
+list_of_blocks.append(list_of_attributes)
+
+# Create the Operator instances, make Operator list, and add it to the list of blocks
+is_1 = Operator(64, 20, "Project/Graphics/isword.png")
+is_2 = Operator(812, 20, "Project/Graphics/isword.png")
+is_3 = Operator(64, 540, "Project/Graphics/isword.png")
+is_4 = Operator(812, 540, "Project/Graphics/isword.png")
+list_of_operators = [is_1, is_2, is_3, is_4]
+list_of_blocks.append(list_of_operators)
