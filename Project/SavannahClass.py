@@ -8,9 +8,9 @@ from pygame.locals import (
     K_DOWN,
     K_LEFT,
     K_RIGHT,
-    # K_ESCAPE,
-    # KEYDOWN,
-    # QUIT,
+    K_ESCAPE,
+    KEYDOWN,
+    QUIT,
 )
 
 # Screen width/height
@@ -19,6 +19,11 @@ SCREEN_HEIGHT = 640
 
 # Initialize pygame
 pygame.init
+
+# Create the screen object
+# The size is determined by the constant SCREEN_WIDTH and SCREEN_HEIGHT
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Parent class for all bocks
 class Block(pygame.sprite.Sprite):
@@ -33,8 +38,9 @@ class Block(pygame.sprite.Sprite):
         self.can_push = set_can_push
         self.is_win = set_is_win
         self.is_stop = set_is_stop
-        self.surf = pygame.image.load(set_image).convert()
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.surf = pygame.image.load(set_image).convert_alpha()
+        self.surf.set_colorkey((0,0,0), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(self.x, self.y))
 
     # Move function
     def move(self, block_to_move, pressed_keys):
@@ -110,30 +116,89 @@ donut_3 = Object(448, 352, False, True, False, True, "Project/Graphics/donut.png
 wafers = [wafer_1, wafer_2, wafer_3, wafer_4, wafer_5, wafer_6, wafer_7, wafer_8, wafer_9, wafer_10, wafer_11, wafer_12, wafer_13, wafer_14]
 donuts = [donut_1, donut_2, donut_3]
 list_of_objects = [cookie, wafers, milk, donuts]
-list_of_blocks.append(list_of_objects)
 
 # Create all of the Variable instances, make a Variable list, add that list to Block list
 # 0 is a placeholder until I figure out the correct positions
-cookie_word = Variable(20, 20, "Project/Graphics/cookieword.png")
+cookie_word = Variable(64, 64, "Project/Graphics/cookieword.png")
 wafer_word = Variable(748, 540, "Project/Graphics/waferword.png")
-milk_word = Variable(20, 540, "Project/Graphics/milkword.png")
-donut_word = Variable(748, 20, "Project/Graphics/donut.png")
+milk_word = Variable(64, 540, "Project/Graphics/milkword.png")
+donut_word = Variable(748, 64, "Project/Graphics/donutword.png")
 list_of_variables = [cookie_word, wafer_word, milk_word, donut_word]
 list_of_blocks.append(list_of_variables)
 
 # Create all of the Attribute instances, make an Attribute list, add that list to Block list
 # 0 is a placeholder until I figure out the correct positions
-you = Attribute(128, 20, "Project/Graphics/youword.png")
-win = Attribute(128, 540, "Project/Graphics/winword.png")
+you = Attribute(196, 64, "Project/Graphics/youword.png")
+win = Attribute(196, 540, "Project/Graphics/winword.png")
 stop = Attribute(876, 540, "Project/Graphics/stopword.png")
-push = Attribute(876, 20, "Project/Graphics/pushword.png")
+push = Attribute(876, 64, "Project/Graphics/pushword.png")
 list_of_attributes = [you, win, stop, push]
 list_of_blocks.append(list_of_attributes)
 
 # Create the Operator instances, make Operator list, and add it to the list of blocks
-is_1 = Operator(64, 20, "Project/Graphics/isword.png")
-is_2 = Operator(812, 20, "Project/Graphics/isword.png")
-is_3 = Operator(64, 540, "Project/Graphics/isword.png")
+is_1 = Operator(128, 64, "Project/Graphics/isword.png")
+is_2 = Operator(812, 64, "Project/Graphics/isword.png")
+is_3 = Operator(128, 540, "Project/Graphics/isword.png")
 is_4 = Operator(812, 540, "Project/Graphics/isword.png")
 list_of_operators = [is_1, is_2, is_3, is_4]
 list_of_blocks.append(list_of_operators)
+
+# Variable to keep the main loop running
+running = True
+
+# Setup the clock for a decent framerate
+clock = pygame.time.Clock()
+
+while running:
+    for event in pygame.event.get():
+
+        # Did the user hit a key?
+
+        if event.type == KEYDOWN:
+
+            # Was it the Escape key? If so, stop the loop.
+
+            if event.key == K_ESCAPE:
+
+                running = False
+
+
+        # Did the user click the window close button? If so, stop the loop.
+        elif event.type == QUIT:
+
+            running = False
+
+    # Fill the screen with sky blue
+    screen.fill((135, 206, 250))
+
+    for entity in list_of_attributes:
+        screen.blit(entity.surf, entity.rect)
+
+    for entity in list_of_objects:
+        if type(entity) == list:
+            for block in entity:
+                screen.blit(block.surf, block.rect)
+        else:
+            screen.blit(entity.surf, entity.rect)
+
+    for entity in list_of_operators:
+        screen.blit(entity.surf, entity.rect)
+
+    for entity in list_of_variables:
+        screen.blit(entity.surf, entity.rect)
+
+    for entity in list_of_blocks:
+        if type(entity) == list:
+            for blok in entity:
+                if type(blok) == list:
+                    for blok2 in blok:
+                        screen.blit(blok2.surf, blok2.rect)
+                    else:
+                        screen.blit(blok.surf, blok.rect)
+        else:
+            screen.blit(entity.surf, entity.rect)
+
+    
+    # Update the display
+    pygame.display.flip()
+
