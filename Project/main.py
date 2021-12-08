@@ -219,8 +219,11 @@ while running:
           for i in range(len(list_of_objects)):
             for block in list_of_objects[i]:
               if (abs(cookie.x - block.x) < 10 and abs(cookie.y - block.y) < 10 and cookie != block and not Block.move_adjacent(block, pressed_keys)):
-                print('o1')
-                Block.correct(pressed_keys)
+                if (not block.is_win == True):
+                  Block.correct(pressed_keys)
+                else:
+                  print('You Win!')
+                  running = False
 
           for i in range(len(list_of_objects)):
             for block in list_of_objects[i]:
