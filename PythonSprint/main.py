@@ -47,32 +47,38 @@ class Block(pygame.sprite.Sprite):
         if True:
         # Move blocks based on key presses
             if pressed_keys[K_UP]:
-                print("up")
                 block_to_move.rect.move_ip(0, -64)
+                cookie.y -= 64
             if pressed_keys[K_DOWN]:
-                print("down")
                 block_to_move.rect.move_ip(0, 64)
+                cookie.y += 64
             if pressed_keys[K_LEFT]:
-                print("left")
                 block_to_move.rect.move_ip(-64, 0)
+                cookie.x -= 64
             if pressed_keys[K_RIGHT]:
-                print("right")
                 block_to_move.rect.move_ip(64, 0)
+                cookie.x += 64
     def move_adjacent(block_to_move, pressed_keys):
         if block_to_move.can_push:
         # Move blocks based on key presses
             if pressed_keys[K_UP]:
-                print("up")
                 block_to_move.rect.move_ip(0, -64)
+                block_to_move.y -= 64
+                return True
             if pressed_keys[K_DOWN]:
-                print("down")
                 block_to_move.rect.move_ip(0, 64)
+                block_to_move.y += 64
+                return True
             if pressed_keys[K_LEFT]:
-                print("left")
                 block_to_move.rect.move_ip(-64, 0)
+                block_to_move.x -= 64
+                return True
             if pressed_keys[K_RIGHT]:
-                print("right")
                 block_to_move.rect.move_ip(64, 0)
+                block_to_move.x += 64
+                return True
+            return False
+    
 
         # Keep blocks on screen
             if block_to_move.rect.left < 0:
@@ -83,6 +89,24 @@ class Block(pygame.sprite.Sprite):
                 block_to_move.rect.top = 0
             if block_to_move.rect.bottom >= SCREEN_HEIGHT:
                 block_to_move.rect.bottom = SCREEN_HEIGHT
+    def correct(pressed_keys):
+      if pressed_keys[K_UP]:
+          cookie.rect.move_ip(0, 64)
+          cookie.y += 64
+          return True
+      if pressed_keys[K_DOWN]:
+          cookie.rect.move_ip(0, -64)
+          cookie.y -= 64
+          return True
+      if pressed_keys[K_LEFT]:
+          cookie.rect.move_ip(64, 0)
+          cookie.x += 64
+          return True
+      if pressed_keys[K_RIGHT]:
+          cookie.rect.move_ip(-64, 0)
+          cookie.x -= 64
+          return True
+      return True
 
 # Object block class
 class Object(Block):
@@ -194,8 +218,14 @@ while running:
           Block.move(cookie, pressed_keys)
           for i in range(len(list_of_objects)):
             for block in list_of_objects[i]:
-              if (cookie.x == block.x and cookie.y == block.y and cookie != block):
-                Block.move(block, pressed_keys)
+              if (abs(cookie.x - block.x) < 10 and abs(cookie.y - block.y) < 10 and cookie != block and not Block.move_adjacent(block, pressed_keys)):
+                print('o1')
+                Block.correct(pressed_keys)
+
+          for i in range(len(list_of_objects)):
+            for block in list_of_objects[i]:
+              if (abs(cookie.x - block.x) < 10 and abs(cookie.y - block.y) < 10 and cookie != block):
+                Block.move_adjacent(block, pressed_keys)
 
 
     # Fill the screen with sky blue
