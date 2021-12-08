@@ -113,7 +113,6 @@ list_of_blocks = []
 
 # Create all the Object instances, make a list of Objects, add that list to the Block list
 # 0 is a placeholder until I figure out the correct positions
-cookie = Object(256, 288, True, False, False, False, "Project/Graphics/cookie.png")
 wafer_1 = Object(256, 160, False, False, False, True, "Project/Graphics/wafer.png")
 wafer_2 = Object(320, 160, False, False, False, True, "Project/Graphics/wafer.png")
 wafer_3 = Object(384, 160, False, False, False, True, "Project/Graphics/wafer.png")
@@ -132,6 +131,7 @@ milk = Object(640, 288, False, False, True, True, "Project/Graphics/milk.png")
 donut_1 = Object(448, 224, False, True, False, True, "Project/Graphics/donut.png")
 donut_2 = Object(448, 288, False, True, False, True, "Project/Graphics/donut.png")
 donut_3 = Object(448, 352, False, True, False, True, "Project/Graphics/donut.png")
+cookie = Object(256, 288, True, False, False, False, "Project/Graphics/cookie.png")
 wafers = [wafer_1, wafer_2, wafer_3, wafer_4, wafer_5, wafer_6, wafer_7, wafer_8, wafer_9, wafer_10, wafer_11, wafer_12, wafer_13, wafer_14]
 donuts = [donut_1, donut_2, donut_3]
 cookiel = [cookie]
