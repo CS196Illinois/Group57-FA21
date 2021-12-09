@@ -1,5 +1,6 @@
 # Import pygame
 import pygame
+import time
 from pygame.constants import WINDOWEXPOSED
 
 from pygame.locals import (
@@ -188,8 +189,9 @@ is_4 = Operator(812, 540, "Project/Graphics/isword.png")
 list_of_operators = [is_1, is_2, is_3, is_4]
 list_of_blocks.append(list_of_operators)
 
-# Determines if win condition events occur
+# Determines if win condition events occur and win display timer start
 winevent = False
+timer = False
 
 # Graphic for win condition
 winscreen = pygame.image.load("Project/Graphics/winscreen.png")
@@ -229,8 +231,6 @@ while running:
                   Block.correct(pressed_keys)
                 else:
                   winevent = True
-                  print('You Win!')
-                  running = False
 
           for i in range(len(list_of_objects)):
             for block in list_of_objects[i]:
@@ -267,10 +267,15 @@ while running:
                         screen.blit(blok.surf, blok.rect)
         else:
             screen.blit(entity.surf, entity.rect)
-    
-    if winevent == True:
-      screen.blit(winscreen, (0, 0))
+    if timer == True:
+        time.sleep(5)
+        running = False 
 
-    
+    if winevent == True:
+        screen.blit(winscreen, (0, 0))
+        timer = True
+
+   
     # Update the display
     pygame.display.flip()
+
